@@ -18,7 +18,7 @@ public class US07_stepDef {
     LoginPage loginPage = new LoginPage();
     BookPage bookPage = new BookPage();
     BorrowedBooksPage borrowedBooksPage= new BorrowedBooksPage();
-    String bookName;
+
 
 
     @Given("the {string} on the home page")
@@ -34,18 +34,18 @@ public class US07_stepDef {
     @And("the user searches for {string} book")
     public void theUserSearchesForBook(String bookName) {
         bookPage.search.sendKeys(bookName + Keys.ENTER);
-        this.bookName=bookName;
+        bookPage.setGivenBookName(bookName);
     }
 
     @When("the user clicks Borrow Book")
     public void theUserClicksBorrowBook() {
-        BrowserUtil.clickWithJS(bookPage.borrowBook(bookName));
+        BrowserUtil.clickWithJS(bookPage.borrowBook(bookPage.getGivenBookName()));
     }
 
     @Then("verify that book is shown in {string} page")
     public void verifyThatBookIsShownInPage(String page) {
         bookPage.navigateModule(page);
-        Assert.assertTrue(borrowedBooksPage.verifyBorrowedBook(bookName));
+        Assert.assertTrue(borrowedBooksPage.verifyBorrowedBook(bookPage.getGivenBookName()));
     }
 
     @And("verify logged student has same book in database")
@@ -58,7 +58,7 @@ public class US07_stepDef {
 
         DB_Util.runQuery(query);
         String actualBookName = DB_Util.getCellValue(1,2);
-        Assert.assertEquals(actualBookName,bookName);
+        Assert.assertEquals(actualBookName,bookPage.getGivenBookName());
 
     }
 }

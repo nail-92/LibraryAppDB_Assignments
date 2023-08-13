@@ -2,7 +2,6 @@ package com.library.pages;
 
 import com.library.utility.Driver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -50,6 +49,15 @@ public class BookPage extends BasePage {
     public WebElement description;
 
 
+    private String givenBookName;
+
+    public String getGivenBookName() {
+        return givenBookName;
+    }
+
+    public void setGivenBookName(String givenBookName) {
+        this.givenBookName = givenBookName;
+    }
 
     public WebElement editBook(String book) {
         String xpath = "//td[3][.='" + book + "']/../td/a";
@@ -60,5 +68,4 @@ public class BookPage extends BasePage {
         String xpath = "//td[3][.='" + book + "']/../td/a";
         return Driver.getDriver().findElement(By.xpath(xpath));
     }
-
 }
