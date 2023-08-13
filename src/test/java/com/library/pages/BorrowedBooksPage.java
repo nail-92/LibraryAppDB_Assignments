@@ -10,4 +10,13 @@ public class BorrowedBooksPage extends BasePage{
 
     @FindBy(xpath = "//tbody//td[2]")
     public List<WebElement> allBorrowedBooksName;
+
+    public boolean verifyBorrowedBook(String bookName){
+        for (WebElement eachBookWE : allBorrowedBooksName) {
+            if (eachBookWE.getText().equals(bookName)){
+                return true;
+            }
+        }
+        return false;
+    }
 }
