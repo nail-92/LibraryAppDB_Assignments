@@ -1,5 +1,6 @@
 package com.library.pages;
 
+import com.library.utility.DB_Util;
 import com.library.utility.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -29,6 +30,12 @@ public class DashBoardPage extends BasePage
         WebElement elementOfModule = Driver.getDriver().findElement(By.xpath(locator));
 
         return elementOfModule.getText();
+    }
+    public int actualBooksNumberBorrowed(){
+
+        String query = "select * from book_borrow where is_returned=0;";
+        DB_Util.runQuery(query);
+        return DB_Util.getRowCount();
     }
 
 }

@@ -20,10 +20,8 @@ public class US03_stepDef {
     public void verifyBookCategoriesMustMatchBook_categoriesTableFromDb() {
         List<String> actual_categories = BrowserUtil.getAllSelectOptions(bookPage.mainCategoryElement);
         actual_categories.remove(0);
-        String query = "select name from book_categories;";
-        DB_Util.runQuery(query);
-        List<String> expected_categories = DB_Util.getColumnDataAsList(1);
-        Assert.assertEquals(actual_categories,expected_categories);
+
+        Assert.assertEquals(actual_categories,bookPage.expected_categories());
 
 
     }

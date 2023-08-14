@@ -30,35 +30,27 @@ public class US07_stepDef {
     public void theUserNavigatesToPage(String page) {
         bookPage.navigateModule(page);
     }
-
-    @And("the user searches for {string} book")
+    @When("the user searches for {string} book")
     public void theUserSearchesForBook(String bookName) {
-        bookPage.search.sendKeys(bookName + Keys.ENTER);
-        bookPage.setGivenBookName(bookName);
+        bookPage.searchBook(bookName);
     }
+
 
     @When("the user clicks Borrow Book")
     public void theUserClicksBorrowBook() {
-        BrowserUtil.clickWithJS(bookPage.borrowBook(bookPage.getGivenBookName()));
+        BrowserUtil.clickWithJS(bookPage.borrowBook(bookPage.givenBookName));
     }
 
     @Then("verify that book is shown in {string} page")
     public void verifyThatBookIsShownInPage(String page) {
         bookPage.navigateModule(page);
-        Assert.assertTrue(borrowedBooksPage.verifyBorrowedBook(bookPage.getGivenBookName()));
+        Assert.assertTrue(borrowedBooksPage.verifyBorrowedBook(bookPage.givenBookName));
     }
 
     @And("verify logged student has same book in database")
     public void verifyLoggedStudentHasSameBookInDatabase() {
-        String query = "select full_name,b.name,bb.borrowed_date from users u inner\n" +
-                "                join book_borrow bb on u.id = bb.user_id\n" +
-                "                join books b on bb.book_id = b.id\n" +
-                "                where full_name='Test Student 5' and name='Self Confidence'\n" +
-                "                order by 3 desc;";
 
-        DB_Util.runQuery(query);
-        String actualBookName = DB_Util.getCellValue(1,2);
-        Assert.assertEquals(actualBookName,bookPage.getGivenBookName());
+        Assert.assertEquals(bookPage.actualBorrowedBookName(),bookPage.givenBookName);
 
     }
 }

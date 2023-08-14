@@ -53,11 +53,7 @@ public class US06_stepDef {
 
     @And("verify {string} information must match with DB")
     public void verifyInformationMustMatchWithDB(String actualBookName) {
-        String query = "select id,name,author from books\n" +
-                "where name = '"+actualBookName+"'\n" +
-                "order by id desc;";
-        DB_Util.runQuery(query);
-        String expectedBookName = DB_Util.getCellValue(1,2);
-        Assert.assertEquals(actualBookName,expectedBookName);
+
+        Assert.assertEquals(actualBookName,bookPage.expectedBookNameInfo(actualBookName));
     }
 }
