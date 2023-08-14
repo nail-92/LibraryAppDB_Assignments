@@ -51,7 +51,7 @@ public class BookPage extends BasePage {
     public WebElement description;
 
 
-    public String givenBookName;
+    public static String givenBookName;
 
 //    public String getGivenBookName() {
 //        return givenBookName;

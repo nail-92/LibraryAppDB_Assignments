@@ -18,7 +18,7 @@ public class US07_stepDef {
     LoginPage loginPage = new LoginPage();
     BookPage bookPage = new BookPage();
     BorrowedBooksPage borrowedBooksPage= new BorrowedBooksPage();
-
+    String bookName;
 
 
     @Given("the {string} on the home page")
